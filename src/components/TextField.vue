@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineModel } from 'vue'
+import { defineModel, defineEmits } from 'vue'
 
 const value = defineModel()
 </script>

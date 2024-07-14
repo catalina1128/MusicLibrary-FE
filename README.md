@@ -15,3 +15,7 @@ $ npm install
 ```bash
 $ npm run dev
 ```
+
+## Deployment
+
+You can also find the application at this link: https://music-library-fe.vercel.app/

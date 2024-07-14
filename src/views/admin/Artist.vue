@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getArtistById } from '@/repositories/artists/index'
 import { addArtist, updateArtist } from '@/repositories/artists/index'
@@ -51,7 +51,7 @@ const save = async () => {
   router.push({ path: '/artists' })
 }
 
-onBeforeMount(getArtist)
+onMounted(getArtist)
 </script>
 
 <template>
@@ -63,7 +63,7 @@ onBeforeMount(getArtist)
     <div class="artist__details">
       <div
         v-for="(album, albumIndex) in artist.albums"
-        :key="album.title"
+        :key="albumIndex"
         class="artist__details__albums"
       >
         <div class="artist__details__albums__title">
@@ -76,7 +76,7 @@ onBeforeMount(getArtist)
           <TextField v-model="album.description" />
         </div>
 
-        <div v-for="(song, songIndex) in album.songs" :key="song.title">
+        <div v-for="(song, songIndex) in album.songs" :key="songIndex">
           <div class="artist__details__albums__songs">
             Song title
             <TextField v-model="song.title" />
