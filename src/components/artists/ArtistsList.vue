@@ -10,13 +10,17 @@ const props = defineProps<{
   admin: boolean
 }>()
 const artists: Ref<Artist[]> = ref([])
+const isLoading = ref(true)
 
 const getArtistsList = async () => {
+  isLoading.value = true
   const response = await getArtists()
 
   if (response) {
     artists.value = response
   }
+
+  isLoading.value = false
 }
 
 onMounted(getArtistsList)
@@ -32,7 +36,9 @@ const deleteAction = async (artistId: string) => {
 
 <template>
   <div class="artists-list">
+    <div v-if="isLoading">Loading...</div>
     <ArtistCard
+      v-else
       v-for="artist in artists"
       :key="artist.name"
       :artist="artist"
