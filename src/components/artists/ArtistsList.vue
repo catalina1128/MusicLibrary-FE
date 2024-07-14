@@ -1,24 +1,45 @@
 <script setup lang="ts">
 import ArtistCard from '@/components/artists/ArtistCard.vue'
+import { onBeforeMount, onMounted, ref } from 'vue'
+import { getArtists, deleteArtist } from '@/repositories/artists/index.ts'
+import Button from '@/components/Button.vue'
 
 const props = defineProps<{
-  artists: {
-    name: string
-    albums: {
-      title: string
-      songs: {
-        title: string
-        length: string
-      }
-      description: string
-    }
-  }
+  admin: boolean
 }>()
+const artists = ref([])
+
+const getArtistsList = async () => {
+  const response = await getArtists()
+
+  if (response) {
+    artists.value = response
+  }
+}
+
+onMounted(getArtistsList)
+
+const deleteAction = async (artistId: string) => {
+  const response = await deleteArtist(artistId)
+
+  if (response.success) {
+    getArtistsList()
+  }
+}
 </script>
 
 <template>
   <div class="artists-list">
-    <ArtistCard v-for="artist in artists" :key="artist.name" :artist="artist" />
+    <ArtistCard
+      v-for="artist in artists"
+      :key="artist.name"
+      :artist="artist"
+      :admin="props.admin"
+      @delete="deleteAction($event)"
+    />
+    <RouterLink v-if="admin" :to="{ name: 'add-artist' }">
+      <Button text="Add" primary />
+    </RouterLink>
   </div>
 </template>
 

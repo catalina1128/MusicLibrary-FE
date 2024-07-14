@@ -4,8 +4,7 @@ import ArtistsList from '@/components/artists/ArtistsList.vue'
 
 <template>
   <div class="box">
-    <h1>Enjoy your artists</h1>
-    <ArtistsList :admin="false" />
+    <ArtistsList admin />
   </div>
 </template>
 
@@ -13,6 +12,5 @@ import ArtistsList from '@/components/artists/ArtistsList.vue'
 .box {
   align-content: center;
   padding: 20px;
-  margin: 1rem;
 }
 </style>

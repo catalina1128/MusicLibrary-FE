@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { computed } from 'vue'
 
-const isCardOpen = ref(false)
+const props = defineProps<{
+  open: boolean
+}>()
+
+const isCardOpen = ref(props.open ?? false)
 
 const toggleCard = () => {
   isCardOpen.value = !isCardOpen.value
@@ -15,10 +18,13 @@ const toggleCard = () => {
       <div class="card__title">
         <slot> </slot>
       </div>
-      <div class="card__details" :style="isCardOpen ? 'max-height: 200px' : 'max-height: 0px'">
+      <div class="card__details" :style="isCardOpen ? 'max-height: 1000px' : 'max-height: 0px'">
         <div v-if="isCardOpen">
           <slot name="details"> </slot>
         </div>
+      </div>
+      <div>
+        <slot name="actions"> </slot>
       </div>
     </div>
     <div class="card__arrow" @click="toggleCard">
