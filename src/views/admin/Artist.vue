@@ -12,7 +12,6 @@ const route = useRoute()
 const router = useRouter()
 
 const artist: Ref<Artist> = ref({
-  _id: '',
   name: '',
   albums: [
     {
@@ -28,19 +27,19 @@ const artist: Ref<Artist> = ref({
   ]
 })
 
-const isEdit = computed(() => route.name === 'edit-artist')
-const artistId = computed(() => route.params.artistId?.toString())
+const isEdit = computed(() => route?.name === 'edit-artist')
+const artistId = computed(() => route?.params?.artistId?.toString())
 
 const getArtist = async () => {
   if (artistId.value) {
     const response = await getArtistById(artistId.value)
 
-    artist.value = response[0]
+    artist.value = response
   }
 }
 
 const save = async () => {
-  if (isEdit.value) {
+  if (isEdit.value && artist.value._id) {
     updateArtist(artist.value._id, artist.value)
     router.push({ path: '/artists' })
 

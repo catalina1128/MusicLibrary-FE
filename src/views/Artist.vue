@@ -11,10 +11,7 @@ const artistId = computed(() => route.params.id.toString())
 
 const getArtist = async () => {
   const response = await getArtistById(artistId.value)
-
-  if (response) {
-    artist.value = response[0]
-  }
+  artist.value = response
 }
 
 onMounted(getArtist)
