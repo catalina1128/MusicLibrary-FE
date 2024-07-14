@@ -1,4 +1,5 @@
 import { config } from '@/config'
+import type { Artist } from '@/types/artist.ts'
 
 const apiUrl = config.apiUrl
 const getArtists = async () => {
@@ -25,8 +26,7 @@ const deleteArtist = async (id: string) => {
   return await response.json()
 }
 
-const addArtist = async (artist) => {
-  console.log(artist)
+const addArtist = async (artist: Artist) => {
   const response = await fetch(`${apiUrl}/artists`, {
     method: 'POST',
     body: JSON.stringify(artist),
@@ -38,7 +38,7 @@ const addArtist = async (artist) => {
   return await response.json()
 }
 
-const updateArtist = async (id: string, artist) => {
+const updateArtist = async (id: string, artist: Artist) => {
   const response = await fetch(`${apiUrl}/artists/${id}`, {
     method: 'PUT',
     body: JSON.stringify(artist),

@@ -2,7 +2,7 @@
 import { RouterLink } from 'vue-router'
 import SearchBar from '@/components/SearchBar.vue'
 import Button from '@/components/Button.vue'
-import { getArtistsSearch } from '@/repositories/artists/index.ts'
+import { getArtistsSearch } from '@/repositories/artists/index'
 </script>
 
 <template>

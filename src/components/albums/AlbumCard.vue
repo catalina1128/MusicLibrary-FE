@@ -1,15 +1,9 @@
 <script setup lang="ts">
 import Card from '@/components/Card.vue'
+import type { Album } from '@/types/album.ts'
 
 const props = defineProps<{
-  album: {
-    title: string
-    songs: {
-      title: string
-      length: string
-    }
-    description: string
-  }
+  album: Album
 }>()
 </script>
 

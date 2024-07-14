@@ -2,20 +2,10 @@
 import { RouterLink } from 'vue-router'
 import Card from '@/components/Card.vue'
 import Button from '@/components/Button.vue'
+import type { Artist } from '@/types/artist.ts'
 
 const props = defineProps<{
-  artist: {
-    _id: string
-    name: string
-    albums: {
-      title: string
-      songs: {
-        title: string
-        length: string
-      }
-      description: string
-    }
-  }
+  artist: Artist
   admin: boolean
 }>()
 

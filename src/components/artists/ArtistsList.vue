@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import ArtistCard from '@/components/artists/ArtistCard.vue'
-import { onBeforeMount, onMounted, ref } from 'vue'
-import { getArtists, deleteArtist } from '@/repositories/artists/index.ts'
+import { onMounted, ref } from 'vue'
+import type { Ref } from 'vue'
+import { getArtists, deleteArtist } from '@/repositories/artists/index'
 import Button from '@/components/Button.vue'
+import type { Artist } from '@/types/artist.ts'
 
 const props = defineProps<{
   admin: boolean
 }>()
-const artists = ref([])
+const artists: Ref<Artist[]> = ref([])
 
 const getArtistsList = async () => {
   const response = await getArtists()

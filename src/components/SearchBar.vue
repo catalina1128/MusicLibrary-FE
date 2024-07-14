@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import TextField from '@/components/TextField.vue'
+import type { Artist } from '@/types/artist.ts'
+import type { Ref } from 'vue'
 
 const props = defineProps<{
   searchFunction: Function
   route: string
 }>()
 
-const values = ref([])
+const values: Ref<Artist[]> = ref([])
 const content = ref('')
 
 watch(content, async (newValue) => {
@@ -27,7 +29,7 @@ watch(content, async (newValue) => {
   <div class="search">
     <TextField v-model="content" />
     <div v-if="values" class="search__suggestions">
-      <div v-for="value in values" :key="value">
+      <div v-for="value in values" :key="value._id">
         <RouterLink :to="{ name: route, params: { id: value._id } }">
           <p>{{ value.name }}</p>
         </RouterLink>

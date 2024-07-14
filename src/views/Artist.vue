@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import ArtistCard from '@/components/artists/ArtistCard.vue'
-import { getArtistById } from '@/repositories/artists/index.ts'
+import { getArtistById } from '@/repositories/artists/index'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const artist = ref(null)
 
+const artistId = computed(() => route.params.id.toString())
+
 const getArtist = async () => {
-  const response = await getArtistById(route.params.id)
+  const response = await getArtistById(artistId.value)
 
   if (response) {
     artist.value = response[0]

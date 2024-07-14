@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getArtistById } from '@/repositories/artists/index.ts'
-import { addArtist, updateArtist } from '@/repositories/artists/index.ts'
+import { getArtistById } from '@/repositories/artists/index'
+import { addArtist, updateArtist } from '@/repositories/artists/index'
 import Button from '@/components/Button.vue'
 import TextField from '@/components/TextField.vue'
+import type { Artist } from '@/types/artist.ts'
+import type { Ref } from 'vue'
 
 const route = useRoute()
 const router = useRouter()
 
-const artist = ref({
+const artist: Ref<Artist> = ref({
+  _id: '',
   name: '',
   albums: [
     {
@@ -17,7 +20,7 @@ const artist = ref({
       songs: [
         {
           title: '',
-          length: ''
+          length: 0
         }
       ],
       description: ''
@@ -26,10 +29,11 @@ const artist = ref({
 })
 
 const isEdit = computed(() => route.name === 'edit-artist')
+const artistId = computed(() => route.params.artistId?.toString())
 
 const getArtist = async () => {
-  if (route.params.artistId) {
-    const response = await getArtistById(route.params.artistId)
+  if (artistId.value) {
+    const response = await getArtistById(artistId.value)
 
     artist.value = response[0]
   }
@@ -79,7 +83,7 @@ onBeforeMount(getArtist)
             <Button
               tertiary
               v-if="songIndex === album.songs.length - 1"
-              @click="album.songs.push({ title: '', length: '' })"
+              @click="album.songs.push({ title: '', length: 0 })"
               text="+"
             />
           </div>
@@ -91,7 +95,7 @@ onBeforeMount(getArtist)
           @click="
             artist.albums.push({
               title: '',
-              songs: [{ title: '', length: '' }],
+              songs: [{ title: '', length: 0 }],
               description: ''
             })
           "
