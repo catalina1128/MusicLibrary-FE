@@ -40,13 +40,13 @@ const getArtist = async () => {
 
 const save = async () => {
   if (isEdit.value && artist.value._id) {
-    updateArtist(artist.value._id, artist.value)
+    await updateArtist(artist.value._id, artist.value)
     router.push({ path: '/admin' })
 
     return
   }
 
-  addArtist(artist.value)
+  await addArtist(artist.value)
   router.push({ path: '/admin' })
 }
 
