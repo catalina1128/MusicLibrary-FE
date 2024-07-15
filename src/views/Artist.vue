@@ -6,12 +6,16 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const artist = ref(null)
+const isLoading = ref(true)
 
 const artistId = computed(() => route.params.id.toString())
 
 const getArtist = async () => {
+  isLoading.value = true
   const response = await getArtistById(artistId.value)
+  console.log(response)
   artist.value = response
+  isLoading.value = false
 }
 
 onMounted(getArtist)
@@ -20,7 +24,9 @@ onMounted(getArtist)
 <template>
   <div class="box">
     <h1>Enjoy your favourite artist</h1>
-    <ArtistCard v-if="artist" :artist="artist" :admin="false" />
+    <div v-if="isLoading">Loading...</div>
+    <div v-else-if="!artist">No artist found</div>
+    <ArtistCard v-else :artist="artist" :admin="false" />
   </div>
 </template>
 

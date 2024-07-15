@@ -6,15 +6,19 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const album = ref(null)
+const isLoading = ref(true)
 const artistId = computed(() => route.params.artistId?.toString())
 const albumTitle = computed(() => route.params.albumTitle?.toString())
 
 const getAlbum = async () => {
+  isLoading.value = true
   const response = await getAlbumByArtistAndName(artistId.value, albumTitle.value)
 
   if (response) {
     album.value = response
   }
+
+  isLoading.value = false
 }
 
 onBeforeMount(getAlbum)
@@ -23,7 +27,9 @@ onBeforeMount(getAlbum)
 <template>
   <div class="box">
     <h1>Enjoy your favourite songs</h1>
-    <AlbumCard v-if="album" :album="album" />
+    <div v-if="isLoading">Loading...</div>
+    <div v-else-if="!album">No album found</div>
+    <AlbumCard v-else :album="album" />
   </div>
 </template>
 

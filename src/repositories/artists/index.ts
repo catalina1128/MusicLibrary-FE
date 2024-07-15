@@ -3,51 +3,71 @@ import type { Artist } from '@/types/artist.ts'
 
 const apiUrl = config.apiUrl
 const getArtists = async () => {
-  const response = await fetch(`${apiUrl}/artists`)
+  const { success, data } = await fetch(`${apiUrl}/artists`).then((response) => {
+    return response.json()
+  })
 
-  return await response.json()
+  if (!success) {
+    return
+  }
+
+  return data
 }
 
 const getArtistById = async (id: string) => {
-  const response = await fetch(`${apiUrl}/artists/${id}`)
+  const { success, data } = await fetch(`${apiUrl}/artists/${id}`).then((response) => {
+    return response.json()
+  })
 
-  return await response.json()
+  if (!success) {
+    return
+  }
+
+  return data
 }
 
 const getArtistsSearch = async (name: string) => {
-  const response = await fetch(`${apiUrl}/artists/${name}/suggestions`)
+  const { success, data } = await fetch(`${apiUrl}/artists/${name}/suggestions`).then(
+    (response) => {
+      return response.json()
+    }
+  )
 
-  return await response.json()
+  if (!success) {
+    return
+  }
+
+  return data
 }
 
 const deleteArtist = async (id: string) => {
-  const response = await fetch(`${apiUrl}/artists/${id}`, { method: 'DELETE' })
-
-  return await response.json()
+  return await fetch(`${apiUrl}/artists/${id}`, { method: 'DELETE' }).then((response) => {
+    return response.json()
+  })
 }
 
 const addArtist = async (artist: Artist) => {
-  const response = await fetch(`${apiUrl}/artists`, {
+  await fetch(`${apiUrl}/artists`, {
     method: 'POST',
     body: JSON.stringify(artist),
     headers: {
       'Content-Type': 'application/json'
     }
+  }).then((response) => {
+    return response.json()
   })
-
-  return await response.json()
 }
 
 const updateArtist = async (id: string, artist: Artist) => {
-  const response = await fetch(`${apiUrl}/artists/${id}`, {
+  await fetch(`${apiUrl}/artists/${id}`, {
     method: 'PUT',
     body: JSON.stringify(artist),
     headers: {
       'Content-Type': 'application/json'
     }
+  }).then((response) => {
+    return response.json()
   })
-
-  return await response.json()
 }
 
 export { getArtists, getArtistsSearch, deleteArtist, addArtist, updateArtist, getArtistById }

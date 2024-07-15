@@ -26,9 +26,9 @@ const getArtistsList = async () => {
 onMounted(getArtistsList)
 
 const deleteAction = async (artistId: string) => {
-  const response = await deleteArtist(artistId)
+  const { success } = await deleteArtist(artistId)
 
-  if (response.success) {
+  if (success) {
     getArtistsList()
   }
 }
@@ -37,6 +37,7 @@ const deleteAction = async (artistId: string) => {
 <template>
   <div class="artists-list">
     <div v-if="isLoading">Loading...</div>
+    <div v-else-if="!artists.length">No artists found</div>
     <ArtistCard
       v-else
       v-for="artist in artists"
