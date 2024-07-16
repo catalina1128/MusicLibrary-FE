@@ -79,12 +79,13 @@ onMounted(getArtist)
           <div class="artist__details__albums__songs">
             Song title
             <TextField v-model="song.title" />
-            <Button
-              tertiary
+            <div
+              class="artist__details__albums__songs__add"
               v-if="songIndex === album.songs.length - 1"
               @click="album.songs.push({ title: '', length: 0 })"
-              text="+"
-            />
+            >
+              <img alt="Arrow up" src="@/assets/plus.svg" width="25" height="25" />
+            </div>
           </div>
         </div>
 
@@ -153,6 +154,11 @@ onMounted(getArtist)
         margin-top: 1rem;
         font-size: 1.2rem;
         justify-content: space-evenly;
+
+        &__add {
+          align-content: center;
+          cursor: pointer;
+        }
       }
     }
   }

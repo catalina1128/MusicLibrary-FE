@@ -69,5 +69,6 @@ const emit = defineEmits(['delete'])
 .actions {
   display: flex;
   margin-top: 1rem;
+  padding: 1rem;
 }
 </style>

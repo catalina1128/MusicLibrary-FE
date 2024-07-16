@@ -32,6 +32,7 @@ const buttonClass = computed(() => {
   border-radius: 5px;
   cursor: pointer;
   width: max-content;
+  margin: 1px;
 }
 
 .red {
