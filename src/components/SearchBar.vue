@@ -46,4 +46,8 @@ watch(content, async (newValue) => {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 }
+
+a {
+  padding: 1px;
+}
 </style>
